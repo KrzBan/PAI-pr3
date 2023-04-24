@@ -96,7 +96,7 @@ HTTP 404 with empty body on missing book
 *id* | `id of book`
 
 # Claim book
-PUT /books/{id}/claim
+POST /books/{id}/claim
 > Requirements: Role(user)
 ## Return value
 
@@ -110,7 +110,7 @@ HTTP 410 with empty body on book not available
 *id* | `id of book`
 
 # Return book
-PUT /books/{id}/return
+POST /books/{id}/return
 > Requirements: Role(user)
 ## Return value
 
