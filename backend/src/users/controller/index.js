@@ -27,7 +27,7 @@ module.exports.signUp = async (res, parameters) => {
       const savedUser = await newUser.save();
 
       const token = jwt.sign(
-        { email, id: savedUser.id, username },
+        { email, id: savedUser.id, username, role },
         config.API_KEY_JWT,
         { expiresIn: config.TOKEN_EXPIRES_IN }
       );
@@ -77,7 +77,7 @@ module.exports.login = async (res, parameters) => {
 
   try {
     const token = jwt.sign(
-      { emaiL: user.email, id: user.id, username: user.username },
+      { emaiL: user.email, id: user.id, username: user.username, role: user.role },
       config.API_KEY_JWT,
       { expiresIn: config.TOKEN_EXPIRES_IN }
     );

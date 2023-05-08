@@ -29,4 +29,4 @@ api.interceptors.request.use(
     }
 );
 
-export default { api, getToken, setToken }
+export { api, getToken, setToken }
