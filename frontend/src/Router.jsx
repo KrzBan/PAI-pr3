@@ -5,17 +5,21 @@ import { history } from './utils/History';
  
 //pages
 import App from './App.jsx'
+import Login from './components/Login'
+import Register from './components/Register'
 import Books from './components/Books'
+import BookCreate from './components/BookCreate'
 
-//import HomePage from "./pages/HomePage"
-//import LoginPage from "./pages/Login"
  
 function AppRouter() {
    return (
        <BrowserRouter history={history}>
            <Routes>
-                <Route path="/" Component={App} />
-                <Route path="/books" Component={Books} />
+                <Route path="/"             Component={App} />
+                <Route path="/login"        Component={Login} />
+                <Route path="/register"     Component={Register} />
+                <Route path="/books"        Component={Books} />
+                <Route path="/bookCreate"   Component={BookCreate} />
            </Routes>
        </BrowserRouter>
    );
