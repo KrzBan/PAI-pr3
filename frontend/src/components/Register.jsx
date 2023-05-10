@@ -1,8 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import {api, setToken} from "../Api";
 
 function Register(){
 
-    const handleSubmit = (event) => {
+  const navigate = useNavigate();
+  
+  const handleSubmit = (event) => {
         // Prevent page reload
         event.preventDefault();
 
@@ -19,6 +22,7 @@ function Register(){
         api.post('users/auth/signup', data)
             .then(response => {
                 setToken(response.data.token);
+                navigate("/");
             }).catch(error =>{
                 console.log("Error!");
                 console.log(error);

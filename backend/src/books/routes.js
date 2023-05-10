@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    controller.get(res, {}, req.params);
+    controller.get(res, {}, req);
 });
   
 router.post(
@@ -31,7 +31,7 @@ router.put(
     validateAuth.checkIfAdmin,
     validateSchemas.inputs(schemas.bookUpdate, 'body'),
     (req, res) => {
-      controller.update(res, req.body, req.params);
+      controller.update(res, req.body, req);
     }
 );
 
@@ -40,7 +40,7 @@ router.delete(
     validateAuth.checkIfAuthenticated,
     validateAuth.checkIfAdmin,
     (req, res) => {
-      controller.delete(res, {}, req.params);
+      controller.delete(res, {}, req);
     }
 );
 
@@ -48,7 +48,7 @@ router.post(
     '/:id/claim',
     validateAuth.checkIfAuthenticated,
     (req, res) => {
-      controller.claim(res, {}, req.params);
+      controller.claim(res, {}, req);
     }
 );
 
@@ -56,7 +56,7 @@ router.post(
     '/:id/return',
     validateAuth.checkIfAuthenticated,
     (req, res) => {
-      controller.return(res, {}, req.params);
+      controller.return(res, {}, req);
     }
 );
 

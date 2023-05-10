@@ -8,6 +8,7 @@ import App from './App.jsx'
 import Login from './components/Login'
 import Register from './components/Register'
 import Books from './components/Books'
+import Book from './components/Book'
 import BookCreate from './components/BookCreate'
 
  
@@ -18,8 +19,11 @@ function AppRouter() {
                 <Route path="/"             Component={App} />
                 <Route path="/login"        Component={Login} />
                 <Route path="/register"     Component={Register} />
-                <Route path="/books"        Component={Books} />
-                <Route path="/bookCreate"   Component={BookCreate} />
+                <Route path="books">
+                    <Route index element={<Books />} />
+                    <Route path=":id" element={<Book />} />
+                    <Route path="create"   Component={BookCreate} />
+                </Route>
            </Routes>
        </BrowserRouter>
    );
