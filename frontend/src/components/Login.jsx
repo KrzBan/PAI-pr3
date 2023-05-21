@@ -1,5 +1,5 @@
 import {api, setToken} from "../Api";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login(){
 
@@ -17,7 +17,7 @@ function Login(){
     api.post('users/auth/login', data)
       .then(response => {
         setToken(response.data.token);
-        navigate(-1);
+        navigate(-2);
       }).catch(error =>{
         console.log("Error!");
         console.log(error);
@@ -25,20 +25,24 @@ function Login(){
   };
 
   return (
-    <div className="form">
-    <form onSubmit={handleSubmit} method="POST">
-      <div className="input-container">
-        <label>Username </label>
-      <input type="text" name="username" required />
+    <div>
+      <h1>Login</h1>
+      <div className="form">
+        <form onSubmit={handleSubmit} method="POST">
+          <div className="input-container">
+            <label>Username </label>
+            <input type="text" name="username" required />
+          </div>
+          <div className="input-container">
+            <label>Password </label>
+            <input type="password" name="password" required />
+          </div>
+          <div className="button-container mt-5">
+            <input type="submit" />
+          </div>
+        </form>
+        <Link to="/register">Sign-Up</Link>
       </div>
-      <div className="input-container">
-      <label>Password </label>
-      <input type="password" name="password" required />
-      </div>
-      <div className="button-container">
-      <input type="submit" />
-      </div>
-    </form>
     </div>
     );
 }

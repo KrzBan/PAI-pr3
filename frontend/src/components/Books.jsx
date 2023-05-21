@@ -33,6 +33,9 @@ function Books(){
                     <p className="text-sm mb-2">
                       <span className="font-bold">ISBN:</span> {book.isbn}
                     </p>
+                    <p>
+                      <span className="font-bold">{book.owned ? ("Owned") : ("")}</span> 
+                    </p>
                   </div>
                 </Link>
               ))}

@@ -7,13 +7,17 @@ const schemas = require('./utils/schemasValidation');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    controller.getAll(res);
-});
+router.get('/', 
+    validateAuth.attachAuthInfo,
+    (req, res) => {
+      controller.getAll(res, {}, req);
+    });
 
-router.get('/:id', (req, res) => {
-    controller.get(res, {}, req);
-});
+router.get('/:id', 
+    validateAuth.attachAuthInfo,
+    (req, res) => {
+      controller.get(res, {}, req);
+    });
   
 router.post(
     '/',

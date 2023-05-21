@@ -30,6 +30,8 @@ function Register(){
       };
 
     return (
+      <div>
+        <h1>Register</h1>
         <div className="form">
         <form onSubmit={handleSubmit} method="POST">
           <div className="input-container">
@@ -56,11 +58,12 @@ function Register(){
             <label>Role </label>
             <input type="text" name="role" required />
           </div>
-          <div className="button-container">
+          <div className="button-container mt-5">
             <input type="submit" />
           </div>
         </form>
         </div>
+      </div>
       );
 }
 

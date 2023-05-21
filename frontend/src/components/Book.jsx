@@ -17,18 +17,16 @@ function Book(){
     }, [id]);
 
     const onClaim = () => {
-        event.preventDefault();
         api.post(`books/${id}/claim`).then(() => {
-            
+            window.location.reload(); 
         }).catch(err=>{
             console.log(err);
         })
     }
 
     const onReturn = () => {
-        event.preventDefault();
         api.post(`books/${id}/return`).then(() => {
-            
+            window.location.reload(); 
         }).catch(err=>{
             console.log(err);
         })
@@ -62,9 +60,13 @@ function Book(){
                 <span className="font-bold">Available copies: </span>
                 {book?.count}
                 </p>
-
-                <button onClick={onClaim}>Claim</button>
-                <button onClick={onReturn}>Return</button>
+                
+                {book.owned ? (
+                    <button onClick={onReturn}>Return</button>
+                ) : (
+                    <button onClick={onClaim}>Claim</button>
+                )}
+                
                 </div>
             )}
 

@@ -1,11 +1,25 @@
 const {Book} = require('../models/index');
 const {User} = require('../../users/models/index');
 
-module.exports.getAll = async (res) => {
+module.exports.getAll = async (res, body, req) => {
     const books = await Book.findAll();
 
+    const userId = req.user?.id;
+    if(userId !== undefined){
+        const user = await User.findOne({where: {id: userId}});
+
+        for(const book of books){
+            book.dataValues.owned = (user !== null) && await user.hasBook(book);
+        }
+   
+    } else{
+        books.forEach(book => {
+            book.dataValues.owned = false;
+        });
+    }
+    
     res.status(200).json(books);
-  };
+};
 
 module.exports.get = async (res, body, req) => {
     const params = req.params;
@@ -19,6 +33,15 @@ module.exports.get = async (res, body, req) => {
           });
     }
 
+    const userId = req.user?.id;
+    if(userId !== undefined){
+        const user = await User.findOne({where: {id: userId}});
+   
+        book.dataValues.owned = (user !== null) && await user.hasBook(book);
+    } else{
+        book.dataValues.owned = false;
+    }
+    
     res.status(200).json(book);
   };
 
