@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { api } from "../Api"
+import { api, getToken } from "../Api"
+import { useJwt } from "react-jwt";
 
 function Book(){
 
     const { id } = useParams();
     const [book, setBook] = useState({});
     const [loading, setLoading] = useState(true);
+
+    const { decodedToken } = useJwt(getToken());
 
     useEffect(()=>{
         setLoading(true);
@@ -61,11 +64,19 @@ function Book(){
                 {book?.count}
                 </p>
                 
-                {book.owned ? (
-                    <button onClick={onReturn}>Return</button>
-                ) : (
-                    <button onClick={onClaim}>Claim</button>
+                {decodedToken ? (
+                    <div>
+                    {book.owned ? (
+                        <button onClick={onReturn}>Return</button>
+                    ) : (
+                        <button onClick={onClaim}>Claim</button>
+                    )}
+                    </div>
+                    ) : (
+                    ""
                 )}
+
+                
                 
                 </div>
             )}

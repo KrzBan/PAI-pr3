@@ -7,6 +7,4 @@ const AuthRoute = ({ children }) => {
   return token ? children : <Navigate to="/login" />;
 };
 
-
-
 export { AuthRoute };

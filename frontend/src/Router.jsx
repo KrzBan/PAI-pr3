@@ -10,7 +10,7 @@ import Register from './components/Register'
 import Books from './components/Books'
 import Book from './components/Book'
 import BookCreate from './components/BookCreate'
-import {AuthRoute} from "./AuthRoute";
+import {AuthRoute} from "./Auth";
 import Navbar from "./components/Navbar";
 
  

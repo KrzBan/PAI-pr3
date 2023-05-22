@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {api} from "../Api";
+import {api, getToken} from "../Api";
+import { useJwt } from "react-jwt";
 
 function Books(){
 
     let [books, setBooks] = useState([]);
     let [loading, setLoading] = useState(true);
+
+    const { decodedToken } = useJwt(getToken());
 
     useEffect(() => {
         setLoading(true);
@@ -18,7 +21,12 @@ function Books(){
     return (
         <div className="container mx-auto py-10">
           <h1 className="text-3xl font-bold mb-5">Books</h1>
-          <Link to="create">Add Book</Link>
+
+          {decodedToken?.role === "admin" ? 
+            (<Link to="create">Add Book</Link>) :
+            ("")}
+          
+
           {loading ? (
             <div className="">loading...</div>
           ) : (
