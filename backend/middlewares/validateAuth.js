@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 const jwt = require('jsonwebtoken');
 
 const config = require('../config');
