@@ -1,9 +1,12 @@
+import { useState } from "react";
 import {api, setToken} from "../Api";
 import { Link, useNavigate } from "react-router-dom";
+import Error from "./Error";
 
 function Login(){
 
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const handleSubmit = (event) => {
   // Prevent page reload
@@ -19,14 +22,21 @@ function Login(){
         setToken(response.data.token);
         navigate(-2);
       }).catch(error =>{
-        console.log("Error!");
-        console.log(error);
+        setError(error.response.data.message);
       })
   };
+
+  const clearError = () => {
+    setError("");
+  }
 
   return (
     <div>
       <h1>Login</h1>
+      {error?
+        <Error msg={error} onClick={clearError} />
+        :null
+      } 
       <div className="form">
         <form onSubmit={handleSubmit} method="POST">
           <div className="input-container">

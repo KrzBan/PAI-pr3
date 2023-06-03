@@ -8,14 +8,14 @@ const checkIfAuthenticated = async (req, res, next) => {
 
   if (!token)
     return res.status(401).json({
-      mensaje: 'No token provided',
+      message: 'No token provided',
       status: 401,
     });
 
 
     jwt.verify(token, config.API_KEY_JWT, (err, decoded) => {
       if (err)
-        return res.status(401).json({ mensaje: 'Invalid token', status: 401 });
+        return res.status(401).json({ message: 'Invalid token', status: 401 });
       req.user = decoded;
       next();
   });
@@ -38,7 +38,7 @@ const checkIfAdmin = async (req, res, next) => {
 
   if (role !== 'admin')
     return res.status(401).json({
-      mensaje: 'User must have a role of admin',
+      message: 'User must have a role of admin',
       status: 401,
     });
 

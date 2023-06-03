@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api, getToken } from "../Api"
 import { useJwt } from "react-jwt";
+import Error from "./Error";
 
 function Book(){
 
     const { id } = useParams();
     const [book, setBook] = useState({});
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
     const { decodedToken } = useJwt(getToken());
 
@@ -22,25 +24,33 @@ function Book(){
     const onClaim = () => {
         api.post(`books/${id}/claim`).then(() => {
             window.location.reload(); 
-        }).catch(err=>{
-            console.log(err);
+        }).catch(error=>{
+            console.log(error);
+            setError(error.response.data.message);
         })
     }
 
     const onReturn = () => {
         api.post(`books/${id}/return`).then(() => {
             window.location.reload(); 
-        }).catch(err=>{
-            console.log(err);
+        }).catch(error=>{
+            setError(error.response.data.message);
         })
     }
+
+    const clearError = () => {
+        setError("");
+      }
 
     return(
     <div className=" mx-16 py-10">
         <div className="flex flex-col items-center text-center">
 
             <h1 className="text-3xl font-bold mb-4">Book</h1>
-
+            {error?
+            <Error msg={error} onClick={clearError} />
+            :null
+            } 
             {loading ? (
                 <p className="text-center">Loading...</p>
             ) : (

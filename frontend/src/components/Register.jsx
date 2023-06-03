@@ -1,10 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import {api, setToken} from "../Api";
+import Error from "./Error";
+import { useState } from "react";
 
 function Register(){
 
   const navigate = useNavigate();
-  
+  const [error, setError] = useState("");
+
   const handleSubmit = (event) => {
         // Prevent page reload
         event.preventDefault();
@@ -24,14 +27,24 @@ function Register(){
                 setToken(response.data.token);
                 navigate("/");
             }).catch(error =>{
-                console.log("Error!");
-                console.log(error);
+              console.log(error);
+              setError(error.response.data.message);
             })
-      };
+  };
+
+  const clearError = () => {
+    setError("");
+  }
 
     return (
       <div>
         <h1>Register</h1>
+
+        {error?
+        <Error msg={error} onClick={clearError} />
+        :null
+        } 
+
         <div className="form">
         <form onSubmit={handleSubmit} method="POST">
           <div className="input-container">

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {api, getToken} from "../Api";
 import { useJwt } from "react-jwt";
+import { MaterialReactTable } from 'material-react-table';
 
 function Books(){
 
@@ -18,6 +19,37 @@ function Books(){
         })
     }, []);
 
+    const tableCols =  [
+      {
+        accessorFn: (row) => `${row.id + (row.owned ? " - Owned" : "")}`, 
+        header: 'ID',
+        size: 150,
+      },
+      {
+        accessorKey: 'name',
+        header: 'Title',
+        size: 150,
+      },
+      {
+        accessorKey: 'author', 
+        header: 'Author',
+        size: 200
+      },
+      {
+        accessorKey: 'isbn',
+        header: 'ISBN',
+        size: 150,
+      },
+      {
+        header: '',
+        size: 100,
+        id: "details",
+        Cell: ({ _, row }) => (
+          <Link to={row.original.id.toString()} key={row.original.id}>Details</Link>
+        )
+      }
+    ]
+
     return (
         <div className="container mx-auto py-10">
           <h1 className="text-3xl font-bold mb-5">Books</h1>
@@ -30,24 +62,7 @@ function Books(){
           {loading ? (
             <div className="">loading...</div>
           ) : (
-            <div className="grid grid-cols-3 gap-8">
-              {books.map((book) => (
-                <Link to={book.id.toString()} key={book.id}>
-                  <div className="bg-gray-200 rounded-lg shadow-lg p-6">
-                    <h2 className="text-lg font-bold mb-4">{book.name}</h2>
-                    <p className="text-sm mb-2">
-                      <span className="font-bold">Author:</span> {book.author}
-                    </p>
-                    <p className="text-sm mb-2">
-                      <span className="font-bold">ISBN:</span> {book.isbn}
-                    </p>
-                    <p>
-                      <span className="font-bold">{book.owned ? ("Owned") : ("")}</span> 
-                    </p>
-                  </div>
-                </Link>
-              ))}
-            </div>
+            <MaterialReactTable columns={tableCols} data={books} />
           )}
         </div>
       );

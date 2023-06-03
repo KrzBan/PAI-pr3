@@ -61,7 +61,7 @@ module.exports.create = async (res, body, req) => {
     } catch (error) {
         return res.status(400).json({
           status: 400,
-          message: error,
+          message: error.errors[0].message,
         });
     }
 };
@@ -144,7 +144,7 @@ module.exports.claim = async (res, body, req) => {
     if(book.count <= 0){
         return res.status(400).json({
             status: 400,
-            message: `Book ID ${id} has no available copies!`,
+            message: `Book ID ${bookId} has no available copies!`,
           });
     }
 
