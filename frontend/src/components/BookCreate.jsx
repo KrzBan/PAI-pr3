@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { api } from "../Api"
+import Error from "./Error";
+import { useState } from "react";
 
 function BookCreate(){
 
     const navigate = useNavigate();
+    const [error, setError] = useState("");
 
     const handleSubmit = () => {
         event.preventDefault();
@@ -14,19 +17,25 @@ function BookCreate(){
             isbn: isbn.value, 
             count: count.value };
 
-        console.log(data);
         api.post('books', data)
             .then(response => {
                 navigate(`../${response.data.id}`);
             }).catch(error =>{
-                console.log("Error!");
-                console.log(error);
+              setError(error.response.data.message);
             })
     };
+
+    const clearError = () => {
+      setError("");
+    }
 
     return (
       <div>
         <h1>Add Book</h1>
+        {error?
+        <Error msg={error} onClick={clearError} />
+        :null
+        } 
         <div className="form">
           <form onSubmit={handleSubmit} method="POST">
             <div className="input-container">
