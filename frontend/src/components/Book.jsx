@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { api, getToken } from "../Api"
 import { useJwt } from "react-jwt";
 import Error from "./Error";
@@ -41,10 +41,14 @@ function Book(){
     const clearError = () => {
         setError("");
       }
-
+      console.log(book);
     return(
     <div className=" mx-16 py-10">
         <div className="flex flex-col items-center text-center">
+
+            {decodedToken?.role === "admin" ? 
+            (<Link to="edit" className="ml-auto">Edit Book</Link>) :
+            ("")}
 
             <h1 className="text-3xl font-bold mb-4">Book</h1>
             {error?
@@ -70,8 +74,7 @@ function Book(){
                 </p>
 
                 <p className="mb-2 text-lg">
-                <span className="font-bold">Available copies: </span>
-                {book?.count}
+                <span className="font-bold">Available copies: {book?.count} out of {book?.count + book?.claimedCount}</span>
                 </p>
                 
                 {decodedToken ? (

@@ -17,6 +17,10 @@ module.exports.getAll = async (res, body, req) => {
             book.dataValues.owned = false;
         });
     }
+
+    for(const book of books){
+        book.dataValues.claimedCount = await book.countUsers();
+    }
     
     res.status(200).json(books);
 };
@@ -41,6 +45,8 @@ module.exports.get = async (res, body, req) => {
     } else{
         book.dataValues.owned = false;
     }
+
+    book.dataValues.claimedCount = await book.countUsers();
     
     res.status(200).json(book);
   };
@@ -92,7 +98,7 @@ module.exports.update = async (res, body, req) => {
     } catch (error) {
         return res.status(400).json({
           status: 400,
-          message: error,
+          message: error.errors[0].message,
         });
     }
 };

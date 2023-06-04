@@ -20,7 +20,7 @@ function Login(){
     api.post('users/auth/login', data)
       .then(response => {
         setToken(response.data.token);
-        navigate(-2);
+        navigate(-1);
       }).catch(error =>{
         setError(error.response.data.message);
       })

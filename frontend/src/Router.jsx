@@ -12,6 +12,7 @@ import Book from './components/Book'
 import BookCreate from './components/BookCreate'
 import {AuthRoute} from "./Auth";
 import Navbar from "./components/Navbar";
+import BookEdit from "./components/BookEdit";
 
  
 function AppRouter() {
@@ -28,6 +29,11 @@ function AppRouter() {
                     <Route path="create"   element={
                         <AuthRoute>
                             <BookCreate />
+                        </AuthRoute>
+                    } />
+                    <Route path=":id/edit"   element={
+                        <AuthRoute>
+                            <BookEdit />
                         </AuthRoute>
                     } />
                 </Route>

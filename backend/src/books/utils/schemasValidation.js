@@ -5,13 +5,13 @@ const schemas = {
     name: Joi.string().required(),
     author: Joi.string().required(),
     isbn: Joi.string().required(),
-    count: Joi.number().required(),
+    count: Joi.number().min(0).required(),
   }),
   bookUpdate: Joi.object().keys({
     name: Joi.string(),
     author: Joi.string(),
     isbn: Joi.string(),
-    count: Joi.number(),
+    count: Joi.number().min(0),
   })
 };
 
