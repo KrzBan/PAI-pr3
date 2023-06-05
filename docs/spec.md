@@ -7,10 +7,14 @@ Versions used during development (probably don't need to be the same)
 - npm - 9.6.4
 
 2. Run Backend,
-From "backend" directory, run "npm run dev"
+From "backend" directory, 
+run "npm install"
+run "npm run dev"
 
 3. Run Frontend,
-From "frontend" directory, run "npm run dev"
+From "frontend" directory, 
+run "npm install"
+run "npm run dev"
 
 4. Enter site "http://localhost:5173/"
 ---
