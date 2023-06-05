@@ -36,7 +36,7 @@ module.exports.signUp = async (res, parameters) => {
     } catch (error) {
       return res.status(400).json({
         status: 400,
-        message: error,
+        message: error.errors[0].message,
       });
     }
   }
